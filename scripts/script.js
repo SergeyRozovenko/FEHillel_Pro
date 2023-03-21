@@ -22,9 +22,9 @@ const averageAge = (parseInt(age1) + parseInt(age2) + parseInt(age3)) / 3;
 
 console.log('**************' ,space,
 'Список студентів, що зареєструвалися на вебінар :',space, 
-'1.',age1,'років', firstName1, lastName1,space,
-'2. ' ,age2,'років', firstName2, lastName2, space,
-'3. ' ,age3,'років', firstName3, lastName3, space,
+'1.' ,age1,'років', firstName1, lastName1, space,
+'2.' ,age2,'років', firstName2, lastName2, space,
+'3.' ,age3,'років', firstName3, lastName3, space,
 '--------------' ,space,
 'Середній вік студента :',averageAge, space,
 '--------------' ,space,
