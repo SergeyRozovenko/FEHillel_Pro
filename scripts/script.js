@@ -6,10 +6,8 @@ alert(userName1);
 
 //--------------1.2
 
-let userName2 = prompt("Please enter your name:");
-
-(userName2 === "admin" && alert("Hello admin")) || alert("Welcome");
-
+const userName = prompt("Please enter your name") === "admin";
+    alert (userName && "Hello admin" || 'Welcome');
 
 //--------------2.1
 
@@ -27,6 +25,6 @@ let age = prompt("Please enter your age:");
 (login && password === '') && alert("Password are required!"); 
 (login && password) && alert("Welcome");
 
-//--------------2.3
+// //--------------2.3
 
 alert((age >= 18 && age <= 28 && 'Hello') || 'Goodbay');
