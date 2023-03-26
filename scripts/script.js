@@ -1,7 +1,7 @@
 
 
 let numOrStr = prompt('input number or string');
-console.log(numOrStr)
+console.log(isNaN( +numOrStr ))
 
 switch(true) {
     case (numOrStr === null):
