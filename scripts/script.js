@@ -1,2 +1,5 @@
-let arr = New Array();
+let arr = [];
+
+arr.length = 10;
+
 
