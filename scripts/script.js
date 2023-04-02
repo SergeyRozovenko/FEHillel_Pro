@@ -51,8 +51,3 @@ console.log(arr);
 console.log('Стовпець з мінімальною сумою елементів' + ' ' + minSumColumn + ',' + 'сума :' + minSum);
 console.log('Стовпець з максимальною сумою елементів' + ' ' + maxSumColumn + ',' + 'сума :' + maxSum);
 
-// console.log(`Стовпець з мінімальною сумою елементів:' + minSumColumn + , 'сума:' minSum);
-
-// console.log(`Стовпець з максимальною сумою елементів:' + maxSumColumn, 'сума:' + maxSum);
-
-
