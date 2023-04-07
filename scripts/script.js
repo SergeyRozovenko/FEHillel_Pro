@@ -8,4 +8,10 @@ function metricsDecorator(callback) {
 	}
   }
 
-  console.log()
+  const sumArray = metricsDecorator((array) => {
+  return array.reduce((sum, num) => sum + num, 0);
+});
+
+const myArray = [1, 2, 3, 4, 5];
+const sum = sumArray(myArray);
+console.log(`The sum of the array is ${sum}`);
