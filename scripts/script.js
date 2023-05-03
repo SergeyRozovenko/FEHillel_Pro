@@ -12,7 +12,7 @@ const history = {
   drawRecords() {
       document.write(this.templateRecords);
   },
-  search: (dependencies) => history.records.find(record => (
+  search: (dependencies) => history.records.find(record => ( // This method serch data in history records
           record.dependencies.left === dependencies.left &&
           record.dependencies.right === dependencies.right &&
           record.dependencies.top === dependencies.top &&
@@ -29,7 +29,7 @@ const shape = {
   }),
   get perimeter() {
       //------ Bug ---
-      let historyRecord = history.search(shape.dependencies);
+      let historyRecord = history.search(shape.dependencies); // This serch parametrs from history records
       if (historyRecord) {
           console.log('Get data from history');
           return historyRecord.perimeter;
