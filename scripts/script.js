@@ -1,64 +1,95 @@
+const history = {
+  records: [],
+  get templateRecords() {
+    const template = this.records.map(
+      (record) =>
+        '<li class="record">' + JSON.stringify(record, null, 50) + "</li>"
+    );
+    return (
+      '<ul class="records card card__shadow">' + template.join(" ") + "</ul>"
+    );
+  },
+  drawRecords() {
+    document.write(this.templateRecords);
+  },
+};
 
-async function getAllProducts() {
-  const response = await fetchAllProducts();
-  const prouducts = response.products;
+const shape = {
+  dependencies: Object.seal({
+    left: 100,
+    right: 100,
+    top: 100,
+    bottom: 100,
+  }),
+  get perimeter() {
+    //------ Bug ---
 
-  console.log(prouducts, "prouducts");
+    //  ------ Your resolve problem there -----
 
+    //  ------ Your resolve problem there -----
 
-  const productsTamplate = `
- <article class="products">
-      ${prouducts.map((product) => `
-          <section class="product-item">
-               <div class="image-wrapper">
-                  ${getProductImage(product.thumbnail)}
-              </div>
-              <div class="content-wrapper">
-                  <div class="title">
-                      ${getProductTitle(product.title)}
-                  </div>
-                  <div class="price">
-                      ${getProductPrice(product.price, product.discountPercentage)}
-                  </div>
-                  <div class="description">${getProductDescription(product.description)}</div>
-                  <div class="actions">
-                      <button id="cart"class="button green-solid cart">
-                          Add to Cart
-                      </button>
-                      <button class="button more">More Details</button>
-                  </div>
-              </div>
-          </section>  
-      `).join("")}
- </article>
-`;
-  document.getElementById("app").innerHTML = productsTamplate;
-}
+    // there are maybe heavy calculations
+    const total = Object.values(this.dependencies).reduce(
+      (accm, value) => accm + value,
+      0
+    );
 
+    // side effect
+    history.records.push({
+      dependencies: this.dependencies,
+      perimeter: total,
+    });
 
-const getProductTitle = (title) => `<h4>${title}</h4>`
+    return total;
+  },
 
-const getProductPrice = (price, discount) => {
-  const discountPrice = ((price * 100 - (discount / 100) * (price * 100))) / 100;
+  set perimeter(perimeter) {
+    if (!Number.isInteger(perimeter) || perimeter < 400) {
+      return;
+    }
 
-  return `
-  <span><${price}, price with discount ${discountPrice}</span>
-  `
-}
+    const size = perimeter / 4;
 
-const getProductDescription = (description) =>  `<span>${description}</span>`
+    this.dependencies = Object.seal({
+      left: size,
+      right: size,
+      top: size,
+      bottom: size,
+    });
 
-const getProductImage = (url) => {
-  if (!url) {
-      return <span>Not Found</span>
-  }
-  return `
-      <img
-          src="${url}"
-          alt=""
-          class="image"
-      />
-  `
-}
+    // side effect
 
-getAllProducts();
+    history.records.push({
+      dependencies: this.dependencies,
+      perimeter: perimeter,
+    });
+  },
+};
+
+// shape.dependencies.foo = NaN; // ignored because  - sealed
+// delete shape.dependencies.left; // ignored because  - sealed
+
+// shape.perimeter = 500; // write -- call setter
+
+// console.log(shape.perimeter, "shape.perimeter"); // read -- call getter
+
+// shape.dependencies.bottom = 200;
+
+/// unoptimized operations
+console.log(shape.perimeter, "shape.perimeter");
+console.log(shape.perimeter, "shape.perimeter");
+console.log(shape.perimeter, "shape.perimeter");
+
+// shape.dependencies.bottom = 300;
+
+// shape.perimeter;
+
+// draw records on screen
+history.drawRecords();
+
+// compare -- modify and current dependencies
+console.log(shape.dependencies, "shape.dependencies");
+console.log(
+  history.records[history.records.length - 1].dependencies,
+  "records"
+);
