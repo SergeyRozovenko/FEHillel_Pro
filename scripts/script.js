@@ -4,27 +4,27 @@ const fetchAllProducts = async () => {
     return (await fetch("https://dummyjson.com/products")).json();
   };
 
-async function getAllProducts() {
+async function getAllProducts(filter) {
  const response = await fetchAllProducts();
 const prouducts = response.products;
 
-prouducts.sort((a, b) => b.rating - a.rating);
+// prouducts.sort((a, b) => b.rating - a.rating);
 
 // фільтрація продуктів
 const filteredProducts = prouducts.filter((product) => {
-    if (searchParams.name && !product.title.toLowerCase().includes(searchParams.name.toLowerCase())) {
+    if (filter.name && !product.title.toLowerCase().includes(filter.name.toLowerCase())) {
       return false;
     }
 
-    if (searchParams.minPrice && product.price < searchParams.minPrice) {
+    if (filter.minPrice && product.price < filter.minPrice) {
       return false;
     }
 
-    if (searchParams.maxPrice && product.price > searchParams.maxPrice) {
+    if (filter.maxPrice && product.price > filter.maxPrice) {
       return false;
     }
 
-    if (searchParams.rating && product.rating < searchParams.rating) {
+    if (filter.rating && product.rating < filter.rating) {
       return false;
     }
 
@@ -36,7 +36,7 @@ const filteredProducts = prouducts.filter((product) => {
   const productsTamplate = `
 
  <article class="products">
-      ${prouducts.map((product) => `
+      ${filteredProducts.sort((a, b) => b.rating - a.rating).map((product) => `
           <section class="product-item">
           ${getProductItem(product)}
           </section>  
@@ -120,4 +120,3 @@ const getProductImage = (url) => {
 }
 const searchParams = getUserSearchParams();
 getAllProducts(searchParams);
-// getAllProducts();
