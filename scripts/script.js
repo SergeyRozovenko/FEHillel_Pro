@@ -1,3 +1,7 @@
+const fetchAllProducts = async () => {
+    return (await fetch("https://dummyjson.com/products")).json();
+  };
+
 async function getAllProducts() {
  const response = await fetchAllProducts();
 const prouducts = response.products;
@@ -52,7 +56,7 @@ const getProductDescription = (description) =>  `<span>${description}</span>`
 
 const getProductImage = (url) => {
   if (!url) {
-      return <span>Not Found</span>
+      return `<span>Not Found </span>`
   }
   return `
       <img
