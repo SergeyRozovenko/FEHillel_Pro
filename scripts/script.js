@@ -1,3 +1,5 @@
+
+  
 const fetchAllProducts = async () => {
     return (await fetch("https://dummyjson.com/products")).json();
   };
@@ -6,7 +8,30 @@ async function getAllProducts() {
  const response = await fetchAllProducts();
 const prouducts = response.products;
 
-  console.log(prouducts, "prouducts");
+prouducts.sort((a, b) => b.rating - a.rating);
+
+// фільтрація продуктів
+const filteredProducts = prouducts.filter((product) => {
+    if (searchParams.name && !product.title.toLowerCase().includes(searchParams.name.toLowerCase())) {
+      return false;
+    }
+
+    if (searchParams.minPrice && product.price < searchParams.minPrice) {
+      return false;
+    }
+
+    if (searchParams.maxPrice && product.price > searchParams.maxPrice) {
+      return false;
+    }
+
+    if (searchParams.rating && product.rating < searchParams.rating) {
+      return false;
+    }
+
+    return true;
+  });
+
+  console.log(filteredProducts, "filteredProducts");
 
   const productsTamplate = `
 
@@ -22,12 +47,29 @@ const prouducts = response.products;
   document.getElementById("app").innerHTML = productsTamplate;
 }
 
+const getUserSearchParams = () => {
+    const name = prompt("Enter product name:");
+    const minPrice = prompt("Enter minimum price:");
+    const maxPrice = prompt("Enter maximum price:");
+    const rating = prompt("Enter minimum rating:");
+    
+    return {
+      name,
+      minPrice,
+      maxPrice,
+      rating
+    };
+  };
+
 const getProductItem = (item) => `<div class="image-wrapper">
 ${getProductImage(item.thumbnail)}
 </div>
 <div class="content-wrapper">
 <div class="title">
 ${getProductTitle(item.title)}
+<div class="rating">
+${getProductRating(item.rating)}
+            </div>
 </div>
 <div class="price">
 ${getProductPrice(item.price, item.discountPercentage)}
@@ -43,12 +85,22 @@ Add to Cart
 
 const getProductTitle = (title) => `<h4>${title}</h4>`
 
+const getProductRating = (rating) =>  {
+return `
+<img
+src="./assets/star_77949 (1).svg"
+alt="star"
+class="image_star"
+/>
+<span>${rating}</span>
+`}
+
 const getProductPrice = (price, discount) => {
 
-    const discountPrice = ((price * 100 - (discount / 100) * (price * 100))) / 100;
+    const discountPrice = ((price - (price / discount)).toFixed(2))
 
   return `
-  <span><${price}, price with discount ${discountPrice}</span>
+  <span>$${price}, price with discount $${discountPrice}</span>
   `
 }
 
@@ -66,5 +118,6 @@ const getProductImage = (url) => {
       />
   `
 }
-
-getAllProducts();
+const searchParams = getUserSearchParams();
+getAllProducts(searchParams);
+// getAllProducts();

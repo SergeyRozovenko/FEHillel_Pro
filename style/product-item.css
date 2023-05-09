@@ -101,6 +101,10 @@ html {
   height: 100%;
 }
 
+.image_star {
+  width: 32px;
+  height: 32px;
+}
 .apple.smartphones {
   background-color: rgba(255, 255, 0, 0.235);
 }
