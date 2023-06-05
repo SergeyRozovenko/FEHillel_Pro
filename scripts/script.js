@@ -1,6 +1,5 @@
 
 class HTMLElement {
-    foo = 12;
 
     constructor(tagName, className, id) {
       this.tagName = tagName;
@@ -19,16 +18,19 @@ class HTMLElement {
   }
  
   
-  class HTMLAnchor extends HTMLElementInput {
-    href = "";
+  class HTMLElementInput extends HTMLElement {
+    #typeInput = "";
   
-  
-    constructor(href, ...arg) {
-      super(...arg); // < --- must have call parent constructor
-      this.href = href;
+    constructor(type, ...arg) {
+      super(...arg);
+      this.#typeInput = type
     }
   
-   
+    stringMethod(string) {
+        this.text = string || 'some default text';
+        console.log("This is a method from HTMLElementInput");
+      }
+
     redirect() {
       console.log("redirecting...", this.tageName);
     }
@@ -38,8 +40,7 @@ class HTMLElement {
     }
   }
   
-  const a1 = new HTMLAnchor("https://roga", "anchor", "link", "facebook-link");
-  console.log(a1.hrefWithoutProtocol, "a1");
+  const a1 = new HTMLElementInput("Input", "Text", "Class", 10);
   
-  a1.rotate();
+  a1.stringMethod("CheckUp");
   
