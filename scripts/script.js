@@ -17,30 +17,48 @@ class HTMLElement {
     }
   }
  
-  
   class HTMLElementInput extends HTMLElement {
-    #typeInput = "";
+    #typeInputAbout = "";
+    #value = "";
+    valid = false;
   
-    constructor(type, ...arg) {
-      super(...arg);
-      this.#typeInput = type
+    constructor(type, value, ...args) {
+      super(...args);
+      this.#typeInputAbout = type;
+      this.value = value;
+    }
+  
+    get type() {
+      return this.#typeInputAbout;
+    }
+  
+    get value() {
+      return this.#value;
+    }
+  
+    set value(value) {
+      this.#value = value.trim();
     }
   
     stringMethod(string) {
-        this.text = string || 'some default text';
-        console.log("This is a method from HTMLElementInput");
-      }
-
-    redirect() {
-      console.log("redirecting...", this.tageName);
+      this.text = string || "some default text";
+      console.log("This is a method from HTMLElementInput");
     }
   
-    rotate() {
-      console.log("Prepareing rotate from HTMLAnchor", this.tagName);
+    validate() {
+      if (this.#value) {
+        this.valid = false;
+      } else {
+        this.valid = true;
+      }
     }
   }
   
-  const a1 = new HTMLElementInput("Input", "Text", "Class", 10);
+  let a1 = new HTMLElementInput("text", "input", "myinput", "check", 10);
   
-  a1.stringMethod("CheckUp");
+  a1.stringMethod("Russiaisaterroriststate");
+  a1.value = "" ;
+  a1.validate();
+  console.log(a1,a1.valid);
+  
   
