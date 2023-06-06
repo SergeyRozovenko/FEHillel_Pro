@@ -41,7 +41,7 @@ class HTMLElement {
     }
   
     stringMethod(string) {
-      this.text = string || "some default text";
+      this.text = string || "default text";
       console.log("This is a method from HTMLElementInput");
     }
   
