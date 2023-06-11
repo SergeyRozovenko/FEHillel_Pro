@@ -1,72 +1,50 @@
-function SuperMath() {
-  this.check = function(obj) {
-    if (confirm(`Ви хочете зробити дію ${obj.znak} з числами ${obj.X} і ${obj.Y}?`)) {
-      if (this.isValidOperator(obj.znak)) {
-        this.calculate(obj);
-      } else {
-        console.log('Введений некоректний оператор!');
-      }
-    } else {
-      obj = this.input();
-      this.check(obj);
-    }
-  };
-
-  this.isValidOperator = function(operator) {
-    const validOperators = ['+', '-', '/', '*', '%'];
-    return validOperators.includes(operator);
-  };
-
-  this.input = function() {
-    const newX = this.getNumberInput('Введіть число X:');
-    const newY = this.getNumberInput('Введіть число Y:');
-    const newZnak = this.getOperatorInput('Введіть математичний оператор (+, -, /, *, %):');
-    return { X: newX, Y: newY, znak: newZnak };
-  };
-
-  this.getNumberInput = function(message) {
-    let input;
-    do {
-      input = Number(prompt(message));
-    } while (isNaN(input));
-    return input;
-  };
-
-  this.getOperatorInput = function(message) {
-    let input;
-    do {
-      input = prompt(message);
-    } while (!this.isValidOperator(input));
-    return input;
-  };
-
-  this.calculate = function(obj) {
-    let result;
-    switch (obj.znak) {
-      case '+':
-        result = obj.X + obj.Y;
-        break;
-      case '-':
-        result = obj.X - obj.Y;
-        break;
-      case '/':
-        result = obj.X / obj.Y;
-        break;
-      case '*':
-        result = obj.X * obj.Y;
-        break;
-      case '%':
-        result = obj.X % obj.Y;
-        break;
-      default:
-        console.log('Введений некоректний оператор!');
-        return;
-    }
-    console.log(`Результат: ${result}`);
-  };
+class Person {
+  constructor(name, gender) {
+    this.name = name;
+    this.gender = gender;
+  }
 }
 
-// Приклад використання
-const obj = { X: 12, Y: 3, znak: "/" };
-const p = new SuperMath();
-p.check(obj);
+class Apartment {
+  constructor() {
+    this.residents = [];
+  }
+
+  addResident(person) {
+    this.residents.push(person);
+  }
+}
+
+class House {
+  constructor(maxApartments) {
+    this.apartments = [];
+    this.maxApartments = maxApartments;
+  }
+
+  addApartment(apartment) {
+    if (this.apartments.length < this.maxApartments) {
+      this.apartments.push(apartment);
+    } else {
+      console.log("The maximum number of apartments in the house has been reached.");
+    }
+  }
+}
+
+// Creating instances of the Person class
+const person1 = new Person("John", "male");
+const person2 = new Person("Emily", "female");
+
+// Creating instances of the Apartment class
+const apartment1 = new Apartment();
+const apartment2 = new Apartment();
+
+// Adding instances of the Person class to instances of the Apartment class
+apartment1.addResident(person1);
+apartment2.addResident(person2);
+
+// Creating an instance of the House class
+const house = new House(2);
+
+// Adding instances of the Apartment class to the instance of the House class.
+house.addApartment(apartment1);
+house.addApartment(apartment2);
