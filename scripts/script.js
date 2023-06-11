@@ -62,7 +62,7 @@ class Hamburger {
       0
     );
 
-    
+    return this.size.calories + this.stuffing.calories + toppingsCalories;
   }
 }
 
