@@ -1,87 +1,115 @@
-// Константи для розмірів гамбургера
-const SIZE_SMALL = {
-  price: 50,
-  calories: 20
-};
-
-const SIZE_LARGE = {
-  price: 100,
-  calories: 40
-};
-
-// Константи для видів начинок
-const STUFFING_CHEESE = {
-  price: 10,
-  calories: 20
-};
-
-const STUFFING_SALAD = {
-  price: 20,
-  calories: 5
-};
-
-const STUFFING_POTATO = {
-  price: 15,
-  calories: 10
-};
-
-// Константи для добавок
-const TOPPING_SAUCE = {
-  price: 15,
-  calories: 0
-};
-
-const TOPPING_MAYO = {
-  price: 20,
-  calories: 5
-};
-
 class Hamburger {
+
+  static SIZE_SMALL = {
+      name: 'SIZE_SMALL',
+      price: 50,
+      calories: 20,
+  }
+
+  static SIZE_BIG = {
+      name: 'SIZE_BIG',
+      price: 100,
+      calories: 40,
+  }
+
+  static STUFFING_CHEESE = {
+      name: 'STUFFING_CHEESE',
+      price: 10,
+      calories: 20,
+  }
+
+  static STUFFING_SALAD = {
+      name: 'STUFFING_SALAD',
+      price: 20,
+      calories: 5,
+  }
+
+  static STUFFING_POTATOES = {
+      name: 'STUFFING_POTATOES',
+      price: 15,
+      calories: 10,
+  }
+
+  static TOPPING_SAUCE = {
+      name: 'TOPPING_SAUCE',
+      price: 15,
+      calories: 0,
+  }
+
+  static TOPPING_MAYO = {
+      name: 'TOPPING_MAYO',
+      price: 20,
+      calories: 5,
+  }
+
   constructor(size, stuffing) {
-    this.size = size;
-    this.stuffing = stuffing;
-    this.toppings = [];
+      this['sizeFeatures'] = size;
+      if (stuffing) {
+          this['stuffingFeatures'] = stuffing;
+      };
   }
 
   addTopping(topping) {
-    this.toppings.push(topping);
+      if (!this['toppingFeatures']) {
+          this['toppingFeatures'] = [topping];
+      } else {
+          this['toppingFeatures'].push(topping);
+      };
   }
 
-  calculatePrice() {
-    const toppingsPrice = this.toppings.reduce(
-      (totalPrice, topping) => totalPrice + topping.price,
-      0
-    );
+  deleteTopping(topping) {
+      const indexOfTopping = this.toppingFeatures ? this.toppingFeatures.indexOf(topping) : -1;
 
-    return this.size.price + this.stuffing.price + toppingsPrice;
+      if (indexOfTopping >= 0) {
+          if (this.toppingFeatures.length > 1) {
+              this.toppingFeatures.splice(indexOfTopping, 1); 
+          } else {
+              delete this.toppingFeatures;
+          };
+      };
   }
 
   calculateCalories() {
-    const toppingsCalories = this.toppings.reduce(
-      (totalCalories, topping) => totalCalories + topping.calories,
-      0
-    );
 
-    return this.size.calories + this.stuffing.calories + toppingsCalories;
+      const toppingCalories = this.toppingFeatures
+          ? this.toppingFeatures.reduce((total, topping) => {
+              return total + topping.calories;
+          }, 0)
+          : 0;
+
+      const stuffingCalories = this.stuffingFeatures
+          ? this.stuffingFeatures.calories
+          : 0;
+
+      return this.sizeFeatures.calories + toppingCalories + stuffingCalories;
+  }
+
+  calculatePrice() {
+      const toppingPrice = this.toppingFeatures
+          ? this.toppingFeatures.reduce((total, topping) => {
+              return total + topping.price;
+          }, 0)
+          : 0;
+      
+      const stuffingPrice = this.stuffingFeatures
+          ? this.stuffingFeatures.price
+          : 0;
+
+      return this.sizeFeatures.price + toppingPrice + stuffingPrice;
   }
 }
 
-// Приклад використання
+const hamburger = new Hamburger(Hamburger.SIZE_SMALL, Hamburger.STUFFING_CHEESE);
 
-// Маленький гамбургер з начинкою з сиру
-var hamburger = new Hamburger(SIZE_SMALL, STUFFING_CHEESE);
+hamburger.deleteTopping(Hamburger.TOPPING_SAUCE);
 
-// Добавка з майонезу
-hamburger.addTopping(TOPPING_MAYO);
+hamburger.addTopping(Hamburger.TOPPING_MAYO);
 
-// Запитаємо, скільки там калорій
-console.log("Calories: " + hamburger.calculateCalories());
+console.log(`Calories: ${hamburger.calculateCalories()}`);
+console.log(`Price: ${hamburger.calculatePrice()} tugrik`);
 
-// Скільки коштує
-console.log("Price: " + hamburger.calculatePrice());
+hamburger.addTopping(Hamburger.TOPPING_SAUCE);
 
-// Я тут передумав і вирішив додати ще приправу
-hamburger.addTopping(TOPPING_SAUCE);
+console.log(`Price with sauce: ${hamburger.calculatePrice()} tugrik`);
 
-// А скільки тепер коштує???
-console.log("Price with sauce: " + hamburger.calculatePrice());
+console.log(hamburger);
