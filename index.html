@@ -5,19 +5,38 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>HomeWork_</title>
+    <title>HomeWork_54</title>
     <link rel="stylesheet" href="./style/style.css">
     <link rel="stylesheet" href="./assets/fonts/fonts.css">
 </head>
 
 <body>
     <main>
-        <div id="temperature"></div>
-        <div id="pressure"></div>
-        <div id="description"></div>
-        <div id="humidity"></div>
-        <div id="wind"></div>
-        <img id="icon" src="./assets/10d.png" alt="Погодный значок">
+        <div id="weather">
+            <div class="weather-item">
+                <div class="weather-label">Температура:</div>
+                <div id="temperature" class="weather-value"></div>
+            </div>
+            <div class="weather-item">
+                <div class="weather-label">Давление:</div>
+                <div id="pressure" class="weather-value"></div>
+            </div>
+            <div class="weather-item">
+                <div class="weather-label">Описание:</div>
+                <div id="description" class="weather-value"></div>
+            </div>
+            <div class="weather-item">
+                <div class="weather-label">Влажность:</div>
+                <div id="humidity" class="weather-value"></div>
+            </div>
+            <div class="weather-item">
+                <div class="weather-label">Скорость ветра:</div>
+                <div id="wind" class="weather-value"></div>
+            </div>
+            <div class="weather-item">
+                <img id="icon" class="weather-icon" src="./assets/10d.png" alt="Погодный значок">
+            </div>
+        </div>
     </main>
     <script src="./scripts/script.js"></script>
 </body>
