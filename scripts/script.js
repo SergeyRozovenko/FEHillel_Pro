@@ -12,7 +12,7 @@ function printSequence(sequence) {
     }
   }
 
-  return new Promise((resolve) => {
+  return new Promise((resolve, reject) => {
     setTimeout(() => {
       printValue(true);
       resolve();
@@ -20,19 +20,32 @@ function printSequence(sequence) {
   })
     .then(() => {
       printValue(true);
+      return Promise.resolve();
+    }, () => {
+      printValue(false);
+      return Promise.reject();
     })
     .then(() => {
       printValue(true);
+      return Promise.resolve();
+    }, () => {
+      printValue(false);
+      return Promise.reject();
     })
     .then(() => {
       printValue(true);
+      return Promise.resolve();
+    }, () => {
+      printValue(false);
+      return Promise.reject();
     })
     .then(() => {
       printValue(true);
       console.log('=======');
-    })
-    .catch(() => {
+      return Promise.resolve();
+    }, () => {
       printValue(false);
+      return Promise.reject();
     });
 }
 
