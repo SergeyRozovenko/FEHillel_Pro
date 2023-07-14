@@ -3,10 +3,10 @@ const app = express();
 const port = 3000;
 const data = require('./data.json');
 
-// Стратегия фильтрации по наличию
+
 const filterByStock = (isStock) => (product) => product.productStock === isStock;
 
-// Стратегия фильтрации по ценовому диапазону
+
 const filterByPriceRange = (minPrice, maxPrice) => (product) => {
   const price = parseFloat(product.productPrice);
   return price >= minPrice && price <= maxPrice;
