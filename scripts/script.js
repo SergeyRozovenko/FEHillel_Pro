@@ -1,32 +1,53 @@
-// Создаем новый экземпляр объекта XMLHttpRequest
-let xhr = new XMLHttpRequest();
+// Функция для отправки запроса на получение данных о погоде
+const fetchWeatherData = () => {
+  const url = "http://api.openweathermap.org/data/2.5/weather?q=LVIV&units=metric&APPID=5d066958a60d315387d9492393935c19";
+  return fetch(url)
+    .then(response => {
+      if (!response.ok) {
+        throw new Error("Произошла ошибка при выполнении запроса.");
+      }
+      return response.json();
+    });
+};
 
-// Открываем новый GET-запрос
-xhr.open("GET", "http://api.openweathermap.org/data/2.5/weather?q=LVIV&units=metric&APPID=5d066958a60d315387d9492393935c19", true);
+// Функция для обновления данных о погоде на странице
+const updateWeatherData = (data) => {
+  const temperature = `Температура: ${data.main.temp}°C`;
+  const pressure = `Давление: ${data.main.pressure} hPa`;
+  const description = `Описание: ${data.weather[0].description}`;
+  const humidity = `Влажность: ${data.main.humidity}%`;
+  const wind = `Скорость ветра: ${data.wind.speed} м/с, направление: ${data.wind.deg}°`;
+  const iconCode = data.weather[0].icon;
 
-// Отправляем запрос
-xhr.send();
+  setWeatherData("temperature", temperature);
+  setWeatherData("pressure", pressure);
+  setWeatherData("description", description);
+  setWeatherData("humidity", humidity);
+  setWeatherData("wind", wind);
+  setWeatherIcon("icon", iconCode);
+};
 
-// Обрабатываем ответ
-xhr.onreadystatechange = function() {
-  if (xhr.readyState === 4 && xhr.status === 200) {
-    let response = JSON.parse(xhr.responseText);
-    
-    // Извлекаем данные о погоде из полученного ответа
-    let temperature = response.main.temp;
-    let pressure = response.main.pressure;
-    let description = response.weather[0].description;
-    let humidity = response.main.humidity;
-    let windSpeed = response.wind.speed;
-    let windDirection = response.wind.deg;
-    let iconCode = response.weather[0].icon;
-
-    // Выводим данные на страницу
-    document.getElementById("temperature").innerHTML = `Температура: ${temperature}°C`;
-    document.getElementById("pressure").innerHTML = `Давление: ${pressure} hPa`;
-    document.getElementById("description").innerHTML = `Описание: ${description}`;
-    document.getElementById("humidity").innerHTML = `Влажность: ${humidity}%`;
-    document.getElementById("wind").innerHTML = `Скорость ветра: ${windSpeed} м/с, направление: ${windDirection}°`;
-    document.getElementById("icon").src = `http://openweathermap.org/img/w/${iconCode}.png`;
+// Функция для установки данных погоды на страницу
+const setWeatherData = (id, value) => {
+  const element = document.getElementById(id);
+  if (element) {
+    element.textContent = value;
   }
 };
+
+// Функция для установки иконки погоды на страницу
+const setWeatherIcon = (id, iconCode) => {
+  const element = document.getElementById(id);
+  if (element) {
+    element.src = `http://openweathermap.org/img/w/${iconCode}.png`;
+  }
+};
+
+// Основной код
+fetchWeatherData()
+  .then(data => {
+    updateWeatherData(data);
+  })
+  .catch(error => {
+    console.log("Произошла ошибка:", error);
+  });
