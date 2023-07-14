@@ -20,32 +20,24 @@ function printSequence(sequence) {
   })
     .then(() => {
       printValue(true);
-      return Promise.resolve();
     }, () => {
       printValue(false);
-      return Promise.reject();
     })
     .then(() => {
       printValue(true);
-      return Promise.resolve();
     }, () => {
       printValue(false);
-      return Promise.reject();
     })
     .then(() => {
       printValue(true);
-      return Promise.resolve();
     }, () => {
       printValue(false);
-      return Promise.reject();
     })
     .then(() => {
       printValue(true);
       console.log('=======');
-      return Promise.resolve();
     }, () => {
       printValue(false);
-      return Promise.reject();
     });
 }
 
