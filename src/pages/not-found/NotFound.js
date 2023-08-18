@@ -7,5 +7,5 @@ export default class NotFound extends Component {
                 Упсссс Not Found Page            
             </div>
         `;
-    }
-}
+    };
+};

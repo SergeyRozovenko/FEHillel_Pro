@@ -1,7 +1,7 @@
 {
-  "name": "client-app",
+  "name": "homework-56",
   "version": "1.0.0",
-  "description": "",
+  "description": "Home tasks",
   "main": "index.js",
   "scripts": {
     "start": "webpack --mode=development",
@@ -24,7 +24,7 @@
     "webpack-dev-server": "^4.15.1"
   },
   "dependencies": {
-    "bootstrap": "^5.3.0",
+    "bootstrap": "^5.3.1",
     "html-webpack-plugin": "^5.5.3"
   }
 }

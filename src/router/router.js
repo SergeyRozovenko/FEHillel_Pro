@@ -2,27 +2,25 @@ import Router from "@/plugins/router";
 import Movies from "@/pages/movies/Movies";
 import SignIn from "@/pages/signIn/SignIn";
 import NotFound from "@/pages/not-found/NotFound";
-import SignUp from "@/pages/signup/SignUp";
+import SignUp from "@/pages/signUp/SignUp";
 
 const routes = [
     {
         path: '/',
-        component: Movies
+        component: Movies,
     },
     {
         path: '/sign-in',
-        component: SignIn
+        component: SignIn,
     },
     {
         path: '/sign-up',
-        component: SignUp
+        component: SignUp,
     },
     {
         path: '*',
-        component: NotFound
-    },
-]
+        component: NotFound,
+    }
+];
 
-
-
-export const router = new Router(routes)
+export const router = new Router(routes);

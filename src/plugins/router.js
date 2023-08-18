@@ -7,7 +7,6 @@ export default class Router {
     constructor(routes) {
         console.log('---- start configuration Router Plugin ---');
 
-
         this.routes = routes;
 
         this.originalPushState = history.pushState;
@@ -17,35 +16,36 @@ export default class Router {
 
             if (typeof history.onpushstate === 'function') {
                 history.onpushstate(state, title, pathTo);
-            }
-        }
-
+            };
+        };
 
         history.onpushstate = (state, title, pathTo) => {
             this.#updateView(pathTo);
             this.originalPushState.apply(history, [state, title, pathTo]);
-        }
-    }
-
+        };
+    };
 
     onInit() {
-        console.log('----start Router plugin-----')
-    }
-
+        console.log('----start Router plugin-----');
+    };
 
     #updateView(pathTo) {
-        let ComponentSearched = this.#findComponent(pathTo)
-        if (!(new ComponentSearched instanceof Component)) {
-            ComponentSearched = this.#findComponent('*')
-        }
-        this.#renderComponent(ComponentSearched)
-    }
+        let ComponentSearched = this.#findComponent(pathTo);
+
+        if (!(ComponentSearched instanceof Component)) {
+            ComponentSearched = this.#findComponent('*');
+        };
+
+        this.#renderComponent(ComponentSearched);
+    };
 
     #findComponent(pathTo) {
-        return this.routes.find(route => route.path === pathTo)?.component
-    }
+        return this.routes.find(route => route.path === pathTo)?.component;
+    };
 
+
+    // innerHTML VS createElement
     #renderComponent(Component) {
         document.querySelector('#app').innerHTML = new Component();
-    }
-}
+    };
+};
