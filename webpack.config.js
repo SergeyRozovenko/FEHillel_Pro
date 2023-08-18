@@ -8,6 +8,10 @@ module.exports = {
         index: './index.js'
     },
 
+    performance: {
+        hints: false,
+        },
+
     output: {
         filename: '[name].[contenthash].js',
         path: path.resolve(__dirname, 'dist'),
