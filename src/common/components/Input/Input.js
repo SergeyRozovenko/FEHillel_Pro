@@ -50,16 +50,3 @@ class Input extends Component {
     export default Input;
 
 
-// const div = document.createElement('div');
-// div.className = 'mb-3';
-//
-// const input = document.createElement('input');
-// input.id = this.props.id;
-// input.className = 'form-control login';
-//
-// div.append(input);
-//
-// input.addEventListener('change', this.onChangeHandler)
-//
-//
-// return div;
