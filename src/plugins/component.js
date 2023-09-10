@@ -1,42 +1,45 @@
 export default class Component {
-    props = {};
-    constructor(...props) {
-      if (typeof this.render !== "function") {
-        throw new Error("Component should implement render() method");
+  props = {};
+
+  constructor(...props) {
+      if (typeof this.render !== 'function') {
+          throw new Error('Component should implement render() method');
       }
-  
+
       if (props.length) {
-        this.setProps(...props);
+         this.setProps(...props)
       }
-    }
-  
-    setProps(props) {
+
+  }
+
+  setProps(props) {
       // if (pr)
       this.props = {
-        ...this.props,
-        ...props,
-      };
-    }
-  
-    replaceSlot(template, ...slots) {
-      for (const { key, replacer } of slots) {
-        if (replacer && typeof replacer === "function") {
-          template.querySelector(key)?.replaceWith(replacer());
-        }
+          ...this.props,
+          ...props
       }
-  
-      return template;
-    }
-  
-    parseClassList(classList) {
-      if (classList && !Array.isArray(classList)) {
-        return "";
-      }
-      return classList.join(" ");
-    }
-  
-    [Symbol.toPrimitive]() {
-      console.log(this, "this");
-      return this.render();
-    }
   }
+
+
+  replaceSlot(template, ...slots) {
+      for (const { key, replacer } of slots) {
+          const node = replacer()
+
+
+          if (Array.isArray(node)) {
+              template.querySelector(key).replaceWith(...node);
+              continue;
+          }
+
+          template.querySelector(key).replaceWith(node);
+      }
+
+      return template;
+  }
+
+
+  [Symbol.toPrimitive]() {
+      console.log(this, 'this');
+      return this.render()
+  }
+}
