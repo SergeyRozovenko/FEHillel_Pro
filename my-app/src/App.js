@@ -9,12 +9,9 @@ function App() {
       <section className="flex">
         <Sidebar />
         <MainContainer>
-          <h1>Hello world</h1>
+          <h1>This is React APP</h1>
           <p>
-            Lorem ipsum dolor sit amet, consectetur adipisicing elit. Aliquam
-            blanditiis cum doloremque ea earum error excepturi fuga fugit ipsum,
-            minima nesciunt nobis quas quibusdam quidem sint tempora tempore
-            ullam voluptatum?
+            How are you?
           </p>
         </MainContainer>
       </section>

@@ -5,9 +5,9 @@ function Sidebar() {
   return (
     <nav className="sidebar">
       <ul>
-        <li>Menu Item 1</li>
-        <li>Menu Item 2</li>
-        <li>Menu Item 3</li>
+        <li> 1</li>
+        <li> 2</li>
+        <li> 3</li>
       </ul>
     </nav>
   );
